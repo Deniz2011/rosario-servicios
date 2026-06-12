@@ -17,3 +17,9 @@ def repair_profile(request):
 
 def requests_list(request):
     return render(request, 'solicitudes.html')
+    
+def proposal(request):
+    return render(request, 'propuesta.html')    
+
+def proposal_sent(request):
+    return render(request, 'propuesta-enviada.html')

@@ -23,6 +23,8 @@ from marketplace.views import (
     cleaning_profile,
     repair_profile,
     requests_list,
+    proposal,
+    proposal_sent,
 )
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -32,4 +34,6 @@ urlpatterns = [
     path('cleaning-profile/', cleaning_profile),
     path('repair-profile/', repair_profile),
     path('requests/', requests_list),
+    path('proposal/', proposal),
+    path('proposal-sent/', proposal_sent),
 ]
