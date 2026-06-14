@@ -36,4 +36,5 @@ urlpatterns = [
     path('requests/', requests_list),
     path('proposal/', proposal),
     path('proposal-sent/', proposal_sent),
+    path('new-request/', proposal),
 ]

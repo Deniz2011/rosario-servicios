@@ -4,32 +4,44 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Enviar propuesta</title>
+    <title>Nueva solicitud</title>
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
+   <form method="post">
+    {% csrf_token %}
 
-    <h1>Enviar propuesta</h1>
+   <h1>Nueva solicitud</h1>
 
-    <p>Precio (ARS)</p>
-    <input type="number" placeholder="25000">
+    <p>Nombre y apellido</p>
+<input type="text" name="name" placeholder="Juan Pérez">
 
-    <p>Mensaje</p>
-    <textarea placeholder="Escribí tu propuesta"></textarea>
+<p>Correo electrónico</p>
+<input type="email" name="email" placeholder="juan@gmail.com">
+<p>Categoría</p>
+<input type="text" name="category" placeholder="Limpieza">
+<p>Título</p>
+<input type="text" name="title" placeholder="Limpieza de departamento">
+<p>Descripción</p>
+<textarea name="description" placeholder="Describí el trabajo que necesitás"></textarea>
+<p>Barrio</p>
+<input type="text" name="location" placeholder="Centro">
+<p>Dirección</p>
+<input type="text" name="address" placeholder="Brown 2190">
+<p>Presupuesto (ARS)</p>
+<input type="number" name="budget" placeholder="25000">
 
     <br><br>
 
-    <a href="/proposal-sent/">
-    <button>Enviar propuesta</button>
-</a>
+    <button type="submit">Publicar solicitud</button>
 
     <br><br>
 
     <a href="solicitudes.html">
         Volver a solicitudes
     </a>
-
+</form>
 </body>
 
 </html>

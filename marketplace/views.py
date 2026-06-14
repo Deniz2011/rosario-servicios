@@ -1,4 +1,6 @@
 from django.shortcuts import render
+from django.http import HttpResponse
+from .models import ServiceRequest
 
 def home(request):
     return render(request, 'index.html')
@@ -19,7 +21,33 @@ def requests_list(request):
     return render(request, 'solicitudes.html')
     
 def proposal(request):
-    return render(request, 'propuesta.html')    
+
+    if request.method == "POST":
+        name = request.POST.get("name")
+        email = request.POST.get("email")
+        category = request.POST.get("category")
+        title = request.POST.get("title")
+        description = request.POST.get("description")
+        location = request.POST.get("location")
+        address = request.POST.get("address")
+        budget = request.POST.get("budget")
+
+        ServiceRequest.objects.create(
+            name=name,
+            email=email,
+            category=category,
+            title=title,
+            description=description,
+            location=location,
+            address=address,
+            budget=budget,
+        )
+
+        return HttpResponse("Solicitud guardada")
+
+    return render(request, "propuesta.html")
+
+    return render(request, 'propuesta.html')
 
 def proposal_sent(request):
     return render(request, 'propuesta-enviada.html')
