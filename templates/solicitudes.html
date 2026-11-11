@@ -6,32 +6,28 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+<h1>Solicitudes disponibles</h1>
 
-    <h1>Solicitudes disponibles</h1>
-    <div class="card">
+{% for request in requests %}
 
-    <h3>Limpieza de departamento</h3>
-
-      <p>📍 Centro</p>
-
-    <p>Necesito limpieza semanal.</p>
-
-    <a href="propuesta.html">
-    <button>Enviar propuesta</button>
-</a>
-</div>
-
-    
 <div class="card">
-    <h3>Limpieza de oficina</h3>
 
-     <p>📍 Pichincha</p>
+    <h3>{{ request.title }}</h3>
+    <p><strong>Categoría:</strong> {{ request.category }}</p>
+    <p><strong>Cliente:</strong> {{ request.name }}</p>
+    <p>🏠 {{ request.address }}</p>
+    <p>💰 ${{ request.budget }}</p>
+    <p>📍 {{ request.location }}</p>
 
-    <p>Limpieza dos veces por semana.</p>
+    <p>{{ request.description }}</p>
 
-    <a href="propuesta.html">
-    <button>Enviar propuesta</button>
+    <a href="{% url 'request_detail' request.id %}">
+    <button>Ver solicitud</button>
 </a>
+
 </div>
+
+{% endfor %}
+   
 </body>
 </html>

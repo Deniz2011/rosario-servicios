@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
 from .models import ServiceRequest
 
@@ -18,8 +18,21 @@ def repair_profile(request):
     return render(request, 'perfil-reparaciones.html')
 
 def requests_list(request):
-    return render(request, 'solicitudes.html')
-    
+    requests = ServiceRequest.objects.all()
+    return render(request, 'solicitudes.html', {'requests': requests})
+
+def request_detail(request, request_id):
+    service_request = get_object_or_404(
+        ServiceRequest,
+        id=request_id
+    )
+
+    return render(
+        request,
+        'request-detail.html',
+        {'service_request': service_request}
+    )
+   
 def proposal(request):
 
     if request.method == "POST":
@@ -43,7 +56,7 @@ def proposal(request):
             budget=budget,
         )
 
-        return HttpResponse("Solicitud guardada")
+        return redirect("proposal_sent")
 
     return render(request, "propuesta.html")
 

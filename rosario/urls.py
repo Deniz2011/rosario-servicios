@@ -23,6 +23,7 @@ from marketplace.views import (
     cleaning_profile,
     repair_profile,
     requests_list,
+    request_detail,
     proposal,
     proposal_sent,
 )
@@ -34,7 +35,8 @@ urlpatterns = [
     path('cleaning-profile/', cleaning_profile),
     path('repair-profile/', repair_profile),
     path('requests/', requests_list),
+    path('request/<int:request_id>/', request_detail, name='request_detail'),
     path('proposal/', proposal),
-    path('proposal-sent/', proposal_sent),
+    path('proposal-sent/', proposal_sent, name='proposal_sent'),
     path('new-request/', proposal),
 ]

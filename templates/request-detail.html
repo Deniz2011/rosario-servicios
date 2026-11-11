@@ -1,0 +1,28 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Detalle de solicitud</title>
+</head>
+<body>
+
+    <h1>{{ service_request.title }}</h1>
+
+    <p><strong>Categoría:</strong> {{ service_request.category }}</p>
+
+    <p><strong>Cliente:</strong> {{ service_request.name }}</p>
+
+    <p><strong>Ubicación:</strong> {{ service_request.location }}</p>
+
+    <p><strong>Dirección:</strong> {{ service_request.address }}</p>
+
+    <p><strong>Presupuesto:</strong> ${{ service_request.budget }}</p>
+
+    <h3>Descripción</h3>
+    <p>{{ service_request.description }}</p>
+
+    <a href="/requests/">Volver a solicitudes</a>
+
+</body>
+</html>
