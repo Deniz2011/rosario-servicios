@@ -20,8 +20,24 @@
     <p><strong>Presupuesto:</strong> ${{ service_request.budget }}</p>
 
     <h3>Descripción</h3>
-    <p>{{ service_request.description }}</p>
+       <p>{{ service_request.description }}</p>
 
+    <hr>
+
+    <h2>Propuestas recibidas</h2>
+
+    {% for proposal in proposals %}
+        <div>
+            <h3>{{ proposal.provider_name }}</h3>
+            <p><strong>Precio:</strong> ${{ proposal.price }}</p>
+            <p>{{ proposal.message }}</p>
+        </div>
+    {% empty %}
+        <p>Todavía no hay propuestas para esta solicitud.</p>
+    {% endfor %}
+    <a href="{% url 'send_proposal' service_request.id %}">
+        Enviar una propuesta
+    </a>
     <a href="/requests/">Volver a solicitudes</a>
 
 </body>

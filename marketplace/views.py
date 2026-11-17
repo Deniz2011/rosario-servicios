@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
-from .models import ServiceRequest
+from .models import ServiceRequest, Proposal
 
 def home(request):
     return render(request, 'index.html')
@@ -27,10 +27,15 @@ def request_detail(request, request_id):
         id=request_id
     )
 
+    proposals = service_request.proposals.all()
+
     return render(
         request,
         'request-detail.html',
-        {'service_request': service_request}
+        {
+            'service_request': service_request,
+            'proposals': proposals
+        }
     )
    
 def proposal(request):
@@ -62,5 +67,38 @@ def proposal(request):
 
     return render(request, 'propuesta.html')
 
+
 def proposal_sent(request):
     return render(request, 'propuesta-enviada.html')
+
+
+def send_proposal(request, request_id):
+    service_request = get_object_or_404(
+        ServiceRequest,
+        id=request_id
+    )
+
+    if request.method == "POST":
+        provider_name = request.POST.get("provider_name")
+        provider_email = request.POST.get("provider_email")
+        price = request.POST.get("price")
+        message = request.POST.get("message")
+
+        Proposal.objects.create(
+            service_request=service_request,
+            provider_name=provider_name,
+            provider_email=provider_email,
+            price=price,
+            message=message
+        )
+
+        return redirect(
+            "request_detail",
+            request_id=request_id
+        )
+
+    return render(
+        request,
+        'send-proposal.html',
+        {'service_request': service_request}
+    )

@@ -26,6 +26,7 @@ from marketplace.views import (
     request_detail,
     proposal,
     proposal_sent,
+    send_proposal,
 )
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -36,6 +37,7 @@ urlpatterns = [
     path('repair-profile/', repair_profile),
     path('requests/', requests_list),
     path('request/<int:request_id>/', request_detail, name='request_detail'),
+    path('request/<int:request_id>/proposal/', send_proposal, name='send_proposal'),
     path('proposal/', proposal),
     path('proposal-sent/', proposal_sent, name='proposal_sent'),
     path('new-request/', proposal),

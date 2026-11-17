@@ -28,3 +28,16 @@ class ServiceRequest(models.Model):
 
     def __str__(self):
         return self.title
+    
+class Proposal(models.Model):
+    service_request = models.ForeignKey(
+        ServiceRequest,
+        on_delete=models.CASCADE,
+        related_name="proposals"
+    )
+    provider_name = models.CharField(max_length=100)
+    provider_email = models.EmailField()
+    price = models.IntegerField(verbose_name="Precio de la propuesta (ARS)")
+    message = models.TextField()
+    def __str__(self):
+        return f"{self.provider_name} - ${self.price}"
