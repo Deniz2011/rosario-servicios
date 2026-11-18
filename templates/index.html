@@ -14,7 +14,16 @@
     <h1>SERVICIOS ROSARIO</h1>
 
     <p>Encontrá profesionales o conseguí clientes en Rosario</p>
-
+    {% if user.is_authenticated %}
+    <p>Hola, {{ user.username }}!</p>
+    <form method="POST" action="{% url 'logout' %}">
+    {% csrf_token %}
+    <button type="submit">Cerrar sesión</button>
+</form>
+{% else %}
+    <a href="{% url 'login' %}">Iniciar sesión</a>
+    <a href="{% url 'register' %}">Registrarse</a>
+{% endif %}
     <a href="/need-service/">
     <button>Necesito un servicio</button>
 </a>

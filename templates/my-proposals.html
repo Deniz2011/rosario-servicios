@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Mis propuestas</title>
+</head>
+<body>
+
+    <h1>Mis propuestas</h1>
+
+    {% for proposal in proposals %}
+        <div>
+            <h3>{{ proposal.service_request.title }}</h3>
+
+            <p><strong>Proveedor:</strong> {{ proposal.provider_name }}</p>
+
+            <p><strong>Precio:</strong> ${{ proposal.price }}</p>
+
+            <p><strong>Fecha:</strong> {{ proposal.created_at|date:"d/m/Y H:i" }}</p>
+
+            <p><strong>Estado:</strong> {{ proposal.get_status_display }}</p>
+
+        </div>
+    {% empty %}
+        <p>Todavía no has enviado propuestas.</p>
+    {% endfor %}
+
+</body>
+</html>

@@ -39,5 +39,15 @@ class Proposal(models.Model):
     provider_email = models.EmailField()
     price = models.IntegerField(verbose_name="Precio de la propuesta (ARS)")
     message = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    status = models.CharField(
+    max_length=20,
+    default="pending",
+    choices=[
+        ("pending", "Pendiente"),
+        ("accepted", "Aceptada"),
+        ("rejected", "Rechazada"),
+    ]
+)
     def __str__(self):
         return f"{self.provider_name} - ${self.price}"

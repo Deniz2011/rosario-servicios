@@ -29,8 +29,16 @@
     {% for proposal in proposals %}
         <div>
             <h3>{{ proposal.provider_name }}</h3>
-            <p><strong>Precio:</strong> ${{ proposal.price }}</p>
-            <p>{{ proposal.message }}</p>
+<p><strong>Precio:</strong> ${{ proposal.price }}</p>
+<p><strong>Fecha:</strong> {{ proposal.created_at|date:"d/m/Y H:i" }}</p>
+<p><strong>Estado:</strong> {{ proposal.get_status_display }}</p>
+<p>{{ proposal.message }}</p>
+{% if proposal.status == "pending" %}
+    <form method="POST" action="{% url 'accept_proposal' proposal.id %}">
+        {% csrf_token %}
+        <button type="submit">Aceptar propuesta</button>
+    </form>
+{% endif %}
         </div>
     {% empty %}
         <p>Todavía no hay propuestas para esta solicitud.</p>

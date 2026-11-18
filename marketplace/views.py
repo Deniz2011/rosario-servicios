@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
+from django.contrib.auth.forms import UserCreationForm
 from django.http import HttpResponse
 from .models import ServiceRequest, Proposal
 
@@ -27,7 +28,7 @@ def request_detail(request, request_id):
         id=request_id
     )
 
-    proposals = service_request.proposals.all()
+    proposals = service_request.proposals.order_by('-created_at')
 
     return render(
         request,
@@ -101,4 +102,48 @@ def send_proposal(request, request_id):
         request,
         'send-proposal.html',
         {'service_request': service_request}
+    )
+def accept_proposal(request, proposal_id):
+    if request.method == "POST":
+        proposal = get_object_or_404(
+            Proposal,
+            id=proposal_id
+        )
+
+        Proposal.objects.filter(
+            service_request=proposal.service_request
+        ).update(status="rejected")
+
+        proposal.status = "accepted"
+        proposal.save()
+
+        return redirect(
+            "request_detail",
+            request_id=proposal.service_request.id
+        )
+
+    return redirect("requests_list")
+def my_proposals(request):
+    proposals = Proposal.objects.order_by('-created_at')
+
+    return render(
+        request,
+        'my-proposals.html',
+        {'proposals': proposals}
+    )
+def register(request):
+    if request.method == "POST":
+        form = UserCreationForm(request.POST)
+
+        if form.is_valid():
+            form.save()
+            return redirect("login")
+
+    else:
+        form = UserCreationForm()
+
+    return render(
+        request,
+        "register.html",
+        {"form": form}
     )

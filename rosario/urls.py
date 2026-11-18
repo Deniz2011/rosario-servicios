@@ -16,6 +16,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from django.contrib.auth import views as auth_views
 from marketplace.views import (
     home,
     need_service,
@@ -27,6 +28,9 @@ from marketplace.views import (
     proposal,
     proposal_sent,
     send_proposal,
+    accept_proposal,
+    my_proposals,
+    register
 )
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -41,4 +45,21 @@ urlpatterns = [
     path('proposal/', proposal),
     path('proposal-sent/', proposal_sent, name='proposal_sent'),
     path('new-request/', proposal),
+    path(
+    'proposal/<int:proposal_id>/accept/',
+    accept_proposal,
+    name='accept_proposal'
+),
+    path('my-proposals/', my_proposals, name='my_proposals'),
+    path('register/', register, name='register'),
+    path(
+        'login/',
+        auth_views.LoginView.as_view(template_name='login.html'),
+        name='login'
+    ),
+    path(
+        'logout/',
+        auth_views.LogoutView.as_view(),
+        name='logout'
+    ),
 ]
