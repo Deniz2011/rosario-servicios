@@ -2,6 +2,7 @@
 
 # Create your models here.
 from django.db import models
+from django.contrib.auth.models import User
 
 
 class ServiceRequest(models.Model):
@@ -51,3 +52,74 @@ class Proposal(models.Model):
 )
     def __str__(self):
         return f"{self.provider_name} - ${self.price}"
+    from django.contrib.auth.models import User
+
+
+class ProviderProfile(models.Model):
+    user = models.OneToOneField(
+        User,
+        on_delete=models.CASCADE,
+        related_name="provider_profile"
+    )
+
+    experience_years = models.PositiveIntegerField(
+        verbose_name="Años de experiencia"
+    )
+
+    description = models.TextField(
+        verbose_name="Sobre mí"
+    )
+
+    work_zones = models.CharField(
+        max_length=300,
+        verbose_name="Zonas de trabajo"
+    )
+
+   
+
+    def __str__(self):
+        return self.user.username
+class ProviderService(models.Model):
+
+    CATEGORY_CHOICES = [
+        ("Limpieza", "Limpieza"),
+        ("Electricidad", "Electricidad"),
+        ("Plomería", "Plomería"),
+        ("Reparaciones", "Reparaciones"),
+        ("Pintura", "Pintura"),
+        ("Jardinería", "Jardinería"),
+        ("Mudanzas", "Mudanzas"),
+        ("Otros", "Otros"),
+    ]
+
+    PRICE_TYPES = [
+        ("fixed", "Precio fijo"),
+        ("range", "Rango de precios"),
+        ("negotiable", "A convenir"),
+    ]
+
+    provider = models.ForeignKey(
+        ProviderProfile,
+        on_delete=models.CASCADE,
+        related_name="services"
+    )
+
+    category = models.CharField(
+        max_length=100,
+        choices=CATEGORY_CHOICES
+    )
+
+    service_name = models.CharField(max_length=150)
+    description = models.TextField(blank=True)
+
+    price_type = models.CharField(
+        max_length=20,
+        choices=PRICE_TYPES,
+        default="range"
+    )
+
+    min_price = models.PositiveIntegerField(null=True, blank=True)
+    max_price = models.PositiveIntegerField(null=True, blank=True)
+
+    def __str__(self):
+        return f"{self.service_name} - {self.provider.user.username}"
