@@ -1,0 +1,21 @@
+<h2>¡Perfil actualizado!</h2>
+
+<p>Tus cambios se guardaron correctamente.</p>
+
+<p><strong>Correo:</strong> {{ profile.user.email }}</p>
+
+<p><strong>Años de experiencia:</strong> {{ profile.experience_years }}</p>
+
+<p><strong>Sobre mí:</strong> {{ profile.description }}</p>
+
+<p><strong>Zonas de trabajo:</strong> {{ profile.work_zones }}</p>
+
+<a href="{% url 'edit_provider_profile' %}">
+    Seguir editando
+</a>
+
+<br><br>
+
+<a href="{% url 'my_provider_profile' %}">
+    Volver a mi perfil
+</a>

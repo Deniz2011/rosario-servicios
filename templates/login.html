@@ -2,11 +2,11 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Iniciar sesión</title>
+    <title>Iniciar sesión - Servicios Rosario</title>
 </head>
 <body>
 
-    <h1>Iniciar sesión</h1>
+    <h2>Iniciar sesión</h2>
 
     <form method="POST">
         {% csrf_token %}
@@ -17,7 +17,10 @@
     </form>
 
     <p>¿Todavía no tienes una cuenta?</p>
-    <a href="{% url 'register' %}">Registrarse</a>
+
+    <a href="{% url 'register_provider' %}">
+        Registrarse
+    </a>
 
 </body>
 </html>

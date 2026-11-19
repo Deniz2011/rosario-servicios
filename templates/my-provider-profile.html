@@ -1,0 +1,24 @@
+<h2>Mi perfil profesional</h2>
+
+<p><strong>Correo:</strong> {{ profile.user.email }}</p>
+
+<p><strong>Años de experiencia:</strong> {{ profile.experience_years }}</p>
+
+<p><strong>Sobre mí:</strong> {{ profile.description }}</p>
+
+<p><strong>Zonas de trabajo:</strong> {{ profile.work_zones }}</p>
+
+<p>
+    <a href="{% url 'edit_provider_profile' %}">
+        Editar mi perfil
+    </a>
+    <a href="{% url 'edit_phone_number' %}">
+    Cambiar número de teléfono
+</a>
+</p>
+
+<p>
+    <a href="{% url 'my_provider_services' %}">
+        Mis servicios
+    </a>
+</p>

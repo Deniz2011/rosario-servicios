@@ -53,7 +53,26 @@ class Proposal(models.Model):
     def __str__(self):
         return f"{self.provider_name} - ${self.price}"
     from django.contrib.auth.models import User
-
+class UserProfile(models.Model):
+    user = models.OneToOneField(
+        User,
+        on_delete=models.CASCADE,
+        related_name="user_profile"
+    )
+    phone_number = models.CharField(
+        max_length=20,
+        unique=True,
+        verbose_name="Número de teléfono"
+    )
+    dni = models.CharField(
+    max_length=30,
+    unique=True,
+    null=True,
+    blank=True,
+    verbose_name="DNI"
+)
+    def __str__(self):
+        return self.user.username
 
 class ProviderProfile(models.Model):
     user = models.OneToOneField(

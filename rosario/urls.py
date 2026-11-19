@@ -30,11 +30,21 @@ from marketplace.views import (
     send_proposal,
     accept_proposal,
     my_proposals,
-    register
+    register_provider,
+    complete_provider_profile,
+    add_provider_service,
+    my_provider_services,
+    edit_provider_service,
+    delete_provider_service,
+    my_provider_profile,
+    edit_provider_profile,
+    profile_updated,
+    edit_phone_number,
+    phone_updated,
 )
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', home),
+   path('', home, name='home'),
     path('need-service/', need_service),
     path('offer-service/', offer_service),
     path('cleaning-profile/', cleaning_profile),
@@ -51,15 +61,58 @@ urlpatterns = [
     name='accept_proposal'
 ),
     path('my-proposals/', my_proposals, name='my_proposals'),
-    path('register/', register, name='register'),
+    path('register/provider/', register_provider, name='register_provider'),
     path(
         'login/',
         auth_views.LoginView.as_view(template_name='login.html'),
         name='login'
     ),
-    path(
+        path(
         'logout/',
         auth_views.LogoutView.as_view(),
         name='logout'
     ),
+    path(
+        'provider/complete-profile/',
+        complete_provider_profile,
+        name='complete_provider_profile'
+    ),
+    path(
+    'provider/add-service/',
+    add_provider_service,
+    name='add_provider_service'
+),
+    path(
+    'provider/my-services/',
+    my_provider_services,
+    name='my_provider_services'
+),
+    path(
+    'provider/edit-service/<int:service_id>/',
+    edit_provider_service,
+    name='edit_provider_service'
+),
+    path(
+    'provider/delete-service/<int:service_id>/',
+    delete_provider_service,
+    name='delete_provider_service'
+),
+    path(
+    'provider/my-profile/',
+    my_provider_profile,
+    name='my_provider_profile'
+),
+    path(
+    'provider/edit-profile/',
+    edit_provider_profile,
+    name='edit_provider_profile'
+),
+    path(
+    'provider/profile-updated/',
+    profile_updated,
+    name='profile_updated'
+),
+    path("provider/edit-phone/", edit_phone_number, name="edit_phone_number"),
+
+    path("provider/phone-updated/", phone_updated, name="phone_updated"),
 ]

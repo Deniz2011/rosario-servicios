@@ -1,0 +1,55 @@
+
+<h2>Completa tu perfil profesional</h2>
+
+<form method="post">
+    {% csrf_token %}
+
+    <h3>Datos personales y profesionales</h3>
+    {{ form.as_p }}
+
+    <hr>
+
+    <h3>Mis servicios</h3>
+
+    {{ service_formset.management_form }}
+
+    {% for service_form in service_formset %}
+        <div class="service-form">
+            {{ service_form.as_p }}
+        </div>
+        <hr>
+    {% endfor %}
+    <div id="empty-service-form" style="display:none;">
+    {{ service_formset.empty_form.as_p }}
+</div>
+<button type="button" id="add-service">
+    + Agregar otro servicio
+</button>
+    <button type="submit">Guardar perfil y servicios</button>
+</form>
+<script>
+document.getElementById("add-service").addEventListener("click", function () {
+    const container = document.querySelector(".service-form").parentElement;
+    const totalForms = document.querySelector(
+        'input[name$="-TOTAL_FORMS"]'
+    );
+
+    const formIndex = parseInt(totalForms.value);
+    const template = document.getElementById("empty-service-form");
+
+    const newForm = document.createElement("div");
+    newForm.classList.add("service-form");
+
+    newForm.innerHTML = template.innerHTML.replaceAll(
+        "__prefix__",
+        formIndex
+    );
+
+    container.insertBefore(
+        newForm,
+        document.getElementById("add-service")
+    );
+
+    totalForms.value = formIndex + 1;
+});
+</script>

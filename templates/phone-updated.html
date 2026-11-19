@@ -1,0 +1,15 @@
+<h1>Número de teléfono actualizado</h1>
+
+<p>Tu nuevo número de teléfono es:</p>
+
+<p>{{ user_profile.phone_number }}</p>
+
+<a href="{% url 'edit_phone_number' %}">
+    Seguir editando
+</a>
+
+<br>
+
+<a href="{% url 'my_provider_profile' %}">
+    Volver a mi perfil
+</a>

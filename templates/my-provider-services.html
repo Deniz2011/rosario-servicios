@@ -1,0 +1,42 @@
+<h2>Mis servicios</h2>
+
+{% if messages %}
+    {% for message in messages %}
+        <p>{{ message }}</p>
+    {% endfor %}
+{% endif %}
+
+<a href="{% url 'add_provider_service' %}">
+    Agregar un servicio
+</a>
+
+<hr>
+
+{% for service in services %}
+    <h3>{{ service.service_name }}</h3>
+    <a href="{% url 'edit_provider_service' service.id %}">
+    Editar
+</a>
+<form method="post"
+      action="{% url 'delete_provider_service' service.id %}"
+      onsubmit="return confirm('¿Estás seguro de que quieres eliminar este servicio?');">
+
+    {% csrf_token %}
+    <button type="submit">Eliminar</button>
+</form>
+    <p>Categoría: {{ service.category }}</p>
+    <p>{{ service.description }}</p>
+    <p>Tipo de precio: {{ service.get_price_type_display }}</p>
+
+    {% if service.price_type == "fixed" %}
+        <p>Precio: {{ service.min_price }} ARS</p>
+    {% elif service.price_type == "range" %}
+        <p>Desde {{ service.min_price }} hasta {{ service.max_price }} ARS</p>
+    {% else %}
+        <p>A convenir</p>
+    {% endif %}
+
+    <hr>
+{% empty %}
+    <p>Todavía no tienes servicios agregados.</p>
+{% endfor %}
